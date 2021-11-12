@@ -11,7 +11,10 @@ app.get('/weather/current/citystate/:city/:state', (req, res) => {
     axios
     .get(`http://api.openweathermap.org/data/2.5/weather?q=${req.params.city},${req.params.state}&appid=${process.env.WEATHER_API_KEY}`,
      {validateStatus: false})
-    .then((apiRes)=> res.send(apiRes.data));
+    .then((apiRes)=> {
+        res.statusCode(parseInt(apiRes.data.cod))
+        res.send(apiRes.data)}
+      );
   } catch (err) {
     res.sendStatus(500);
   }

@@ -6,7 +6,7 @@ function App() {
   const weatherApi: WeatherApi = new WeatherApi();
 
   React.useEffect(()=>{
-    weatherApi.getCurrentWeatherByCityAndState('sandy', 'ut').then((res)=>{
+    weatherApi.getCurrentWeatherByCityAndState('dsfgsdfgsdfg', 'xx').then((res)=>{
       console.log(res);
     });
   })
