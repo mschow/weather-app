@@ -1,5 +1,5 @@
 //The data returned from the OpenWeatherMap endpoint.
-export interface currentWeatherApiResDTO {
+export interface CurrentWeatherApiResDTO {
     coord: {
         lon: number,
         lat: number

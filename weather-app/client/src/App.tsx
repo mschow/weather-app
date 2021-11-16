@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { WeatherApi } from './api/weatherApi';
+import { CurrentWeatherApiResDTO } from './common/interfaces/currentWeatherApiResDTO';
 import './App.css';
 
 function App() {
   const weatherApi: WeatherApi = new WeatherApi();
 
-  React.useEffect(()=>{
-    weatherApi.getCurrentWeatherByCityAndState('dsfgsdfgsdfg', 'xx').then((res)=>{
-      console.log(res);
+  const [currentWeather, setCurrentWeather] = useState<CurrentWeatherApiResDTO[]>([])
+
+  useEffect(()=>{
+    weatherApi.getCurrentWeatherByCurrentLocation().then((res) => {
+      const newCurrentWeather: CurrentWeatherApiResDTO[] = [res, ...currentWeather];
+      setCurrentWeather(newCurrentWeather);
     });
   })
 

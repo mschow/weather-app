@@ -12,14 +12,33 @@ app.get('/weather/current/citystate/:city/:state', (req, res) => {
     .get(`http://api.openweathermap.org/data/2.5/weather?q=${req.params.city},${req.params.state}&appid=${process.env.WEATHER_API_KEY}`,
      {validateStatus: false})
     .then((apiRes)=> {
-        res.statusCode(parseInt(apiRes.data.cod))
-        res.send(apiRes.data)}
-      );
+        res.status(parseInt(apiRes.data.cod)).send(apiRes.data)
+      });
   } catch (err) {
     res.sendStatus(500);
   }
 }); 
 
 app.get('/weather/current/zip/:zipcode', (req, res) => {
-  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT ' + req.params.city + req.params.state });
-}); 
+  try {
+    axios
+    .get(`http://api.openweathermap.org/data/2.5/weather?zip=${req.params.zipcode}&appid=${process.env.WEATHER_API_KEY}`,
+     {validateStatus: false})
+     .then((apiRes)=> {
+      res.status(parseInt(apiRes.data.cod)).send(apiRes.data)
+    });
+  } catch (err) {
+    res.sendStatus(500);
+  }}); 
+
+  app.get('/weather/current/coord/:latitude/:longitude', (req, res) => {
+    try {
+      axios
+      .get(`http://api.openweathermap.org/data/2.5/weather?lat=${req.params.latitude}&lon=${req.params.longitude}&appid=${process.env.WEATHER_API_KEY}`,
+       {validateStatus: false})
+       .then((apiRes)=> {
+        res.status(parseInt(apiRes.data.cod)).send(apiRes.data)
+      });
+    } catch (err) {
+      res.sendStatus(500);
+    }}); 
