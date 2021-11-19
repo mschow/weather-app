@@ -16,6 +16,18 @@ function App() {
     //eslint-disable-next-line
   }, []);
 
+  useEffect(()=>{
+    persistCurrentWeather();
+    
+    /**
+     * Save the currentWeather state to the local storage.
+     */
+    function persistCurrentWeather(): void {
+      localStorage?.setItem(CURRENT_WEATHER_STORAGE_KEY, JSON.stringify(currentWeather))
+    }
+
+  }, [currentWeather]);
+
   /**
    * Run all initial tasks.
    */
@@ -43,7 +55,6 @@ function App() {
         const localCurrentWeatherListItem: WeatherListItem = new WeatherListItem(findNextAvailableWeatherID(), res, true);
         const newCurrentWeather: WeatherListItem[] = [localCurrentWeatherListItem, ...currentWeather];
         setCurrentWeather(newCurrentWeather);
-        persistCurrentWeather();
       });
     }
   }
@@ -61,15 +72,9 @@ function App() {
     }, 0);
   }
 
-  /**
-   * Save the currentWeather state to the local storage.
-   */
-  function persistCurrentWeather(): void {
-    localStorage?.setItem(CURRENT_WEATHER_STORAGE_KEY, JSON.stringify(currentWeather))
-  }
-
   return (
     <div className="App">
+      
     </div>
   );
 }
